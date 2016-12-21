@@ -28,15 +28,16 @@ export PATH=$BUILD_DIR/bin:$PATH
 
 export NIX_ROOT_CACHE_PATH=$CACHE_DIR/nix-mnt/$NIX_VERSION_FULL
 export REAL_APP_DIR=${REAL_APP_DIR:-/app}
+export NIX_DOWNLOAD_URL=https://nixos.org/releases/nix/nix-${NIX_VERSION}/${NIX_VERSION_FULL}.tar.bz2
 
 if [ -d "$NIX_ROOT_CACHE_PATH" ]; then
   topic "nix $NIX_VERSION found in cache"
 else
-  topic "Downloading nix $NIX_VERSION to cache"
+  topic "Downloading nix $NIX_VERSION from ${NIX_DOWNLOAD_URL} to cache"
 
   mkdir -p $CACHE_DIR/nix-mnt
   cd $CACHE_DIR/nix-mnt
-  fetch nix-${NIX_VERSION}.tar.bz2 http://hydra.nixos.org/build/17897595/download/1/${NIX_VERSION_FULL}.tar.bz2
+  fetch nix-${NIX_VERSION}.tar.bz2 ${NIX_DOWNLOAD_URL}
   tar xjf nix-${NIX_VERSION}.tar.bz2
   echo "Done extracting." | indent
   rm nix-${NIX_VERSION}.tar.bz2
@@ -61,7 +62,7 @@ if [ -z "${NIX_BUILD_ON_PUSH:-}" ] && [ ! -e /tmp/closure.log ]; then
   echo "Then complete the deploy with:" | indent
   echo "$ git commit --amend --no-edit" | indent
   echo "$ git push -f heroku master" | indent
-else 
+else
   if [ -e $BUILD_DIR/post-install.sh ]; then
     source $BUILD_DIR/post-install.sh
   fi

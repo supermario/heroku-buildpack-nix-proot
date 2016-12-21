@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export NIX_VERSION=1.8
+export NIX_VERSION=1.11.4
 export NIX_VERSION_FULL=nix-$NIX_VERSION-x86_64-linux
 export NIX_MNT=/tmp/nix-mnt
 export NIX_ROOT_PATH=$NIX_MNT/$NIX_VERSION_FULL
@@ -104,7 +104,7 @@ try_download_closure() {
   check_for_s3
   export EC2_ACCESS_KEY=$NIX_S3_KEY
   export EC2_SECRET_KEY=$NIX_S3_SECRET
- 
+
   if [ -e /closures/$CLOSURE_NAME ]; then # spoof closure transfer
     cp /closures/$CLOSURE_NAME $CLOSURE
   else
@@ -118,7 +118,7 @@ upload_closure() {
   check_for_s3
   export EC2_ACCESS_KEY=$NIX_S3_KEY
   export EC2_SECRET_KEY=$NIX_S3_SECRET
- 
+
   if [ -d /closures ]; then # spoof closure transfer
     cp $CLOSURE /closures/$CLOSURE_NAME
   else

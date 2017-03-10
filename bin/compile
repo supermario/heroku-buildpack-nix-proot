@@ -20,7 +20,7 @@ export_env_dir $ENV_DIR
 
 mkdir -p $CACHE_DIR/bin
 
-download_and_install $CACHE_DIR $BUILD_DIR proot http://static.proot.me/proot-x86_64
+download_and_install $CACHE_DIR $BUILD_DIR proot https://github.com/proot-me/proot-static-build/blob/master/static/proot-x86_64?raw=true
 download_and_install $CACHE_DIR $BUILD_DIR aws https://raw.githubusercontent.com/timkay/aws/master/aws
 
 # add executables to path
